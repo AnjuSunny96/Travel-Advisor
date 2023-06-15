@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import {CssBaseline,Grid} from '@material-ui/core'
+import Header from './component/Header/Header'
+import List from './component/List/List'
+import Map from './component/Map/Map'
+import { getPlacesData } from "./api";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App=()=>{
+
+    const [places,setPlaces]=useState([])
+
+useEffect(()=>{
+
+    getPlacesData()
+    .then((data)=>{
+        console.log("data in app:",data)
+
+        setPlaces(data)
+    })
+},[])
+
+    return(
+        <>
+            <CssBaseline/>
+            <Header/>
+            <Grid container spacing={3} style={{width:'100%'}}>
+                <Grid xs={12} md={4}>
+                    <List/>
+                </Grid>
+                <Grid xs={12} md={8}>
+                    <Map/>
+                </Grid>
+            </Grid>
+        </>
+    )
 }
-
 export default App;
