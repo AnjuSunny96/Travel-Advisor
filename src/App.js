@@ -8,16 +8,26 @@ import { getPlacesData } from "./api";
 const App=()=>{
 
     const [places,setPlaces]=useState([])
+    const [coordinates,setCoordinates]=useState({ })
+    const [bounds,setBounds]=useState(null)
 
+    //this useEffect is for locating the user location
+    useEffect(()=>{
+        navigator.geolocation.getCurrentPosition(({coords:{latitude,longitude}})=>{
+            setCoordinates({lat:latitude,lng:longitude})
+        })
+    },[])
+
+//This useEffect is for locating the restaurants,hotels, attractions.
 useEffect(()=>{
-
-    getPlacesData()
+    console.log(coordinates,bounds)
+    bounds && getPlacesData(bounds.ne,bounds.sw)
     .then((data)=>{
         console.log("data in app:",data)
 
         setPlaces(data)
     })
-},[])
+},[coordinates,bounds])
 
     return(
         <>
@@ -28,7 +38,11 @@ useEffect(()=>{
                     <List/>
                 </Grid>
                 <Grid xs={12} md={8}>
-                    <Map/>
+                    <Map
+                       setCoordinates={setCoordinates}
+                       setBounds={setBounds}
+                       coordinates={coordinates}
+                    />
                 </Grid>
             </Grid>
         </>
