@@ -9,7 +9,7 @@ const App=()=>{
 
     const [places,setPlaces]=useState([])
     const [coordinates,setCoordinates]=useState({ })
-    const [bounds,setBounds]=useState(null)
+    const [bounds,setBounds]=useState({})
 
     //this useEffect is for locating the user location
     useEffect(()=>{
@@ -42,6 +42,7 @@ useEffect(()=>{
                        setCoordinates={setCoordinates}
                        setBounds={setBounds}
                        coordinates={coordinates}
+                       places={places}
                     />
                 </Grid>
             </Grid>

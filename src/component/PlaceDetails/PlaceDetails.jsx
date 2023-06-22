@@ -20,10 +20,17 @@ const PlaceDetails=({place})=>{
         />
         <CardContent>
             <Typography gutterBottom variant="h5">{place.name}</Typography>
+            {/* section for rating */}
+            <Box  display="flex" justifyContent="space-between">
+                <Rating size="small" value={Number(place.rating)} readOnly/>
+                <Typography gutterBottom variant="subtitle1">out of {place.num_reviews}</Typography>
+            </Box>
+                {/* section for price */}
             <Box display="flex" justifyContent="space-between">
                 <Typography variant="subtitle1">Price</Typography>
                 <Typography gutterBottom variant="subtitle1">{place.price_level}</Typography>
             </Box>
+                {/* section for showing ranking */}
             <Box display='flex' justifyContent='space-between'>
                 <Typography variant="subtitle1">Ranking</Typography>
                 <Typography gutterBottom variant="subtitle1">{place.ranking}</Typography>
@@ -35,6 +42,31 @@ const PlaceDetails=({place})=>{
                     <Typography variant="subtitle2" color="textSecondary">{award.display_name}</Typography>
                 </Box>
             ))}
+            {/* showing wich cuisines are available in restaurant */}
+            {place?.cuisine?.map(({name})=>(
+                <Chip key={name} size="small" label={name} className={classes.chip}/>
+            ))}
+            {/* to show address of the restaurant */}
+            {place?.address && (
+                <Typography gutterBottom variant="body2" color="textSecondary" className={classes.subtitle}>
+                    <LocationOnIcon/>{place.address}
+                </Typography>
+            )}
+            {/* to show the phone number of restaurant */}
+            {place?.phone && (
+                <Typography gutterBottom variant="body2" color="textSecondary" className={classes.spacing}>
+                    <PhoneIcon/>{place.phone}
+                </Typography>
+            )}
+            {/* websites buttons */}
+            <CardActions>
+                <button size="small"  className={classes.button} onClick={()=>window.open(place.web_url,'_blank')}>
+                    TRIP ADVISOR
+                </button>
+                <button size="small" className={classes.button}  onClick={()=>window.open(place.website,'_blank')}>
+                    WEBSITE
+                </button>
+            </CardActions>
         </CardContent>
        </Card>
         

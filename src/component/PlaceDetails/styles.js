@@ -16,4 +16,15 @@ export default makeStyles(()=>({
         alignItems:'center',
         justifyContent:'space-between',
     },
+    button:{
+        outline:'none',
+        border:'none',
+        backgroundColor:'transparent',
+        color:'#808080 ',
+        fontWeight:'bold',
+        cursor:'pointer'
+    },
+    rating:{
+        color: '#orange',
+    },
 }))
